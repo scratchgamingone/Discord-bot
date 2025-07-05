@@ -49,6 +49,10 @@ IF %ERRORLEVEL% NEQ 0 (
     echo Remote origin already exists
 )
 
+REM Pull from GitHub
+echo Pulling from GitHub
+git pull origin master
+
 REM Push to GitHub
 echo Pushing to GitHub
 git push -u origin master
