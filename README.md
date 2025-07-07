@@ -73,3 +73,4 @@ Contributions are welcome! To contribute to Custom-bot, follow these steps:
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+"# Discord-bot" 
