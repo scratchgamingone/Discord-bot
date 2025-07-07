@@ -19,13 +19,13 @@ IF NOT EXIST .git (
 REM Check if .env file exists in the current directory
 IF EXIST .env (
     echo .env file detected. Moving to Documents folder for safety.
-    move .env "%USERPROFILE%\Documents\.env_backup"
+    move .env "%USERPROFILE%\Documents\.env"
     IF ERRORLEVEL 1 (
         echo Failed to move .env file. Please move it manually before proceeding.
         pause
         exit /b
     ) ELSE (
-        echo .env file successfully moved to %USERPROFILE%\Documents\.env_backup
+        echo .env file successfully moved to %USERPROFILE%\Documents\.env
     )
 )
 
@@ -51,7 +51,7 @@ REM Check if remote origin exists
 git remote -v | findstr /C:"origin" > nul
 IF %ERRORLEVEL% NEQ 0 (
     echo Adding remote origin
-    git remote add origin https://github.com/scratchgamingone/Custom-bot.git
+    git remote add origin https://github.com/scratchgamingone/Discord-bot.git
 ) ELSE (
     echo Remote origin already exists
 )
@@ -67,17 +67,17 @@ git push -u origin master
 echo Upload complete!
 
 REM Check if .env file was moved and ask if user wants to restore it
-IF EXIST "%USERPROFILE%\Documents\.env_backup" (
+IF EXIST "%USERPROFILE%\Documents\.env" (
     SET /P RESTORE="Do you want to restore the .env file? (Y/N): "
     IF /I "%RESTORE%" EQU "Y" (
-        move "%USERPROFILE%\Documents\.env_backup" .env
+        move "%USERPROFILE%\Documents\.env" .env
         IF ERRORLEVEL 1 (
-            echo Failed to restore .env file. Please move it back manually from %USERPROFILE%\Documents\.env_backup
+            echo Failed to restore .env file. Please move it back manually from %USERPROFILE%\Documents\.env
         ) ELSE (
             echo .env file restored successfully.
         )
     ) ELSE (
-        echo .env file remains in %USERPROFILE%\Documents\.env_backup
+        echo .env file remains in %USERPROFILE%\Documents\.env
     )
 )
 
