@@ -16,10 +16,17 @@ IF NOT EXIST .git (
     git init
 )
 
-REM Remove .env file if it exists
+REM Check if .env file exists in the current directory
 IF EXIST .env (
-    echo Removing .env file
-    del .env
+    echo .env file detected. Moving to Documents folder for safety.
+    move .env "%USERPROFILE%\Documents\.env_backup"
+    IF ERRORLEVEL 1 (
+        echo Failed to move .env file. Please move it manually before proceeding.
+        pause
+        exit /b
+    ) ELSE (
+        echo .env file successfully moved to %USERPROFILE%\Documents\.env_backup
+    )
 )
 
 REM Show status and ask for confirmation
@@ -58,4 +65,20 @@ echo Pushing to GitHub
 git push -u origin master
 
 echo Upload complete!
+
+REM Check if .env file was moved and ask if user wants to restore it
+IF EXIST "%USERPROFILE%\Documents\.env_backup" (
+    SET /P RESTORE="Do you want to restore the .env file? (Y/N): "
+    IF /I "%RESTORE%" EQU "Y" (
+        move "%USERPROFILE%\Documents\.env_backup" .env
+        IF ERRORLEVEL 1 (
+            echo Failed to restore .env file. Please move it back manually from %USERPROFILE%\Documents\.env_backup
+        ) ELSE (
+            echo .env file restored successfully.
+        )
+    ) ELSE (
+        echo .env file remains in %USERPROFILE%\Documents\.env_backup
+    )
+)
+
 pause
