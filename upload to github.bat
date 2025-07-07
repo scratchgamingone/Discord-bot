@@ -51,7 +51,7 @@ REM Check if remote origin exists
 git remote -v | findstr /C:"origin" > nul
 IF %ERRORLEVEL% NEQ 0 (
     echo Adding remote origin
-    git remote add origin https://github.com/scratchgamingone/Discord-bot.git
+    git remote add origin https://github.com/scratchgamingone/Custom-bot.git
 ) ELSE (
     echo Remote origin already exists
 )
