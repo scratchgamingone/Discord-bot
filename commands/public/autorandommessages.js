@@ -17,7 +17,8 @@ export function setupAutoRandomMessages(client) {
                 return;
             }
 
-            const wordsFilePath = join(__dirname, '..', '..', 'words.txt');
+            // Updated file path to words.txt
+            const wordsFilePath = join(__dirname, '..', 'words.txt');
             const fileContent = await fs.readFile(wordsFilePath, 'utf-8');
             const words = fileContent.split('\n').filter(word => word.trim() !== '');
 
