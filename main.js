@@ -57,16 +57,10 @@ const loadCommands = async (dir) => {
   }
 };
 
-// Load public commands
+// Load commands
 await loadCommands('commands/public');
-
-// Load booster commands
 await loadCommands('commands/booster');
-
-// Load admin commands
 await loadCommands('commands/admin');
-
-// Load owner commands
 await loadCommands('commands/owner');
 
 async function dailyRandomPing() {
@@ -144,7 +138,9 @@ client.once('ready', async () => {
 
   console.log('✅ Daily random ping scheduled for 10 AM EST');
 
+  // Set up auto random messages
   setupAutoRandomMessages(client);
+  console.log('✅ Auto random messages setup complete');
 });
 
 client.on('interactionCreate', async interaction => {
