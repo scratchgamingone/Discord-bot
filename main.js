@@ -11,6 +11,7 @@ import { config } from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
 import fetch from 'node-fetch';
+import { setupAutoRandomMessages } from './commands/public/autorandommessages.js';
 
 config(); // Load .env
 
@@ -142,6 +143,8 @@ client.once('ready', async () => {
   });
 
   console.log('✅ Daily random ping scheduled for 10 AM EST');
+
+  setupAutoRandomMessages(client);
 });
 
 client.on('interactionCreate', async interaction => {
