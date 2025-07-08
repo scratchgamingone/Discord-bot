@@ -11,6 +11,9 @@ git commit -m "%commit_message%"
 :: Ensure we're on the main branch
 git checkout main
 
+:: Update the remote URL to the correct repository
+git remote set-url origin https://github.com/scratchgamingone/Discord-bot.git
+
 :: Pull any changes from the remote repository
 git pull origin main
 
