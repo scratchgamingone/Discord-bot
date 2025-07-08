@@ -45,14 +45,18 @@ const loadCommands = async (dir) => {
 
   for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
-    const command = await import(`file://${filePath}`);
-    if ('data' in command.default && 'execute' in command.default) {
-      client.commands.set(command.default.data.name, command.default);
-      slashCommands.push(command.default.data.toJSON());
-      workingCommands.push(command.default.data.name);
-      console.log(`✅ Loaded command: ${command.default.data.name}`);
-    } else {
-      console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+    try {
+      const command = await import(`file://${filePath}`);
+      if (command.default && 'data' in command.default && 'execute' in command.default) {
+        client.commands.set(command.default.data.name, command.default);
+        slashCommands.push(command.default.data.toJSON());
+        workingCommands.push(command.default.data.name);
+        console.log(`✅ Loaded command: ${command.default.data.name}`);
+      } else {
+        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+      }
+    } catch (error) {
+      console.error(`[ERROR] Failed to load command from file ${filePath}:`, error);
     }
   }
 };
