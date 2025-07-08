@@ -1,4 +1,3 @@
-import { Client } from 'discord.js';
 import { promises as fs } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -37,6 +36,7 @@ export function setupAutoRandomMessages(client) {
 
             const message = selectedWords.join(' ');
             await channel.send(message);
+            console.log(`Sent auto message: ${message}`);
         } catch (error) {
             console.error('Error sending random words:', error);
         }
