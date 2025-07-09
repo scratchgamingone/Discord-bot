@@ -14,6 +14,16 @@ import fetch from 'node-fetch';
 import { setupAutoRandomMessages } from './commands/public/autorandommessages.js';
 import { keepAlive } from './keep_alive.js';  // Correct import path
 
+// Self-ping function to keep bot alive
+async function selfPing() {
+  try {
+    await fetch('http://localhost:3000');
+    console.log('Self-ping successful');
+  } catch (error) {
+    console.error('Self-ping failed:', error);
+  }
+}
+
 config(); // Load .env
 
 const __filename = fileURLToPath(import.meta.url);
@@ -141,7 +151,14 @@ client.once('ready', async () => {
     timezone: "America/New_York"
   });
 
+  // Schedule self-ping every 5 minutes to keep bot alive
+  cron.schedule('*/5 * * * *', selfPing, {
+    scheduled: true,
+    timezone: "America/New_York"
+  });
+
   console.log('✅ Daily random ping scheduled for 10 AM EST');
+  console.log('✅ Self-ping scheduled every 5 minutes');
 
   // Set up auto random messages
   setupAutoRandomMessages(client);
