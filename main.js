@@ -11,7 +11,7 @@ import { config } from 'dotenv';
 import fs from 'fs';
 import cron from 'node-cron';
 import fetch from 'node-fetch';
-import { setupAutoRandomMessages } from './commands/public/autorandommessages.js';
+import { setupAutoRandomMessages } from './utils/autorandommessages.js';
 import { keepAlive } from './keep_alive.js';  // Correct import path
 
 // Self-ping function to keep bot alive
