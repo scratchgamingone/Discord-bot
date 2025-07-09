@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 
 export function keepAlive() {
-  app.listen(port, () => {
+  app.listen(port, '0.0.0.0', () => {
     console.log(`Keep-alive server is ready on port ${port}`);
   });
 }
