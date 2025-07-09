@@ -1,3 +1,4 @@
+
 import { join, dirname } from 'path';
 import {
   Client,
@@ -12,6 +13,7 @@ import fs from 'fs';
 import cron from 'node-cron';
 import fetch from 'node-fetch';
 import { setupAutoRandomMessages } from './commands/public/autorandommessages.js';
+import { keepAlive } from './keep_alive.js';  // Add this line
 
 config(); // Load .env
 
@@ -180,5 +182,8 @@ client.on('interactionCreate', async interaction => {
     }
   }
 });
+
+// Add this line to start the keep-alive server
+keepAlive();
 
 client.login(process.env.DISCORD_TOKEN);
