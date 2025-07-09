@@ -16,9 +16,15 @@ async function loadCommands(folder) {
     const commandModule = await import(`file://${filePath}`);
     const command = commandModule.default;
     if (command && 'data' in command && 'execute' in command) {
+      let typeIndicator = '';
+      if (folder === 'admin') typeIndicator = ' `[Admin]`';
+      else if (folder === 'booster') typeIndicator = ' `[Booster]`';
+      else if (folder === 'owner') typeIndicator = ' `[Owner]`';
+      
       commands.push({
         name: command.data.name,
-        description: command.data.description
+        description: command.data.description + typeIndicator,
+        type: folder
       });
     }
   }
