@@ -19,8 +19,9 @@ async function loadCommands(folder) {
       let typeIndicator = '';
       if (folder === 'admin') typeIndicator = ' `[Admin]`';
       else if (folder === 'booster') typeIndicator = ' `[Booster]`';
+      else if (folder === 'staff') typeIndicator = ' `[Staff]`';
       else if (folder === 'owner') typeIndicator = ' `[Owner]`';
-      
+
       commands.push({
         name: command.data.name,
         description: command.data.description + typeIndicator,

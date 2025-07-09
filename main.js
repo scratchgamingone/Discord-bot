@@ -186,6 +186,14 @@ client.on('interactionCreate', async interaction => {
     if (command.boosterOnly && !interaction.member.roles.cache.has(boosterRoleId)) {
       return interaction.reply({ content: "This command is only available to server boosters.", ephemeral: true });
     }
+    
+    // Check for staff-only commands
+    if (command.staffOnly) {
+      const staffRoleId = process.env.STAFF_TEAM;
+      if (!interaction.member.roles.cache.has(staffRoleId)) {
+        return interaction.reply({ content: "This command is only available to staff members.", ephemeral: true });
+      }
+    }
 
     await command.execute(interaction);
   } catch (error) {
