@@ -5,24 +5,17 @@ import fetch from 'node-fetch';
 export default {
     data: new SlashCommandBuilder()
         .setName('weather')
-        .setDescription('Get current weather information for a city')
+        .setDescription('Get current weather information for a location')
         .addStringOption(option =>
-            option.setName('state')
-                .setDescription('The state (optional, helps with US locations)')
-                .setRequired(false))
-        .addStringOption(option =>
-            option.setName('city')
-                .setDescription('The city to get weather for')
+            option.setName('zipcode')
+                .setDescription('The zip code to get weather for')
                 .setRequired(true)),
 
     async execute(interaction) {
         await interaction.deferReply();
 
-        const city = interaction.options.getString('city');
-        const state = interaction.options.getString('state');
-
-        // Create location string
-        const location = state ? `${city}, ${state}` : city;
+        const zipcode = interaction.options.getString('zipcode');
+        const location = zipcode;
 
         const fetchWeatherData = async (locationName) => {
             const response = await fetch(`https://wttr.in/${encodeURIComponent(locationName)}?format=j1`);
