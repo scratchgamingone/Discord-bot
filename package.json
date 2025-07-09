@@ -12,6 +12,7 @@
     "discord-bot": "file:",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
+    "express": "^5.1.0",
     "igdb-api-node": "^5.0.2",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
