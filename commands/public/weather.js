@@ -7,6 +7,10 @@ export default {
         .setName('weather')
         .setDescription('Get current weather information for a city')
         .addStringOption(option =>
+            option.setName('state')
+                .setDescription('The state (optional, helps with US locations)')
+                .setRequired(false))
+        .addStringOption(option =>
             option.setName('city')
                 .setDescription('The city to get weather for')
                 .setRequired(true)),
@@ -15,22 +19,26 @@ export default {
         await interaction.deferReply();
 
         const city = interaction.options.getString('city');
+        const state = interaction.options.getString('state');
 
-        const fetchWeatherData = async (cityName) => {
-            const response = await fetch(`https://wttr.in/${encodeURIComponent(cityName)}?format=j1`);
+        // Create location string
+        const location = state ? `${city}, ${state}` : city;
+
+        const fetchWeatherData = async (locationName) => {
+            const response = await fetch(`https://wttr.in/${encodeURIComponent(locationName)}?format=j1`);
             if (!response.ok) {
-                throw new Error('City not found');
+                throw new Error('Location not found');
             }
             return response.json();
         };
 
-        const createWeatherEmbed = (weatherData, cityName) => {
+        const createWeatherEmbed = (weatherData, locationName) => {
             const current = weatherData.current_condition[0];
             const today = weatherData.weather[0];
             
             return new EmbedBuilder()
                 .setColor('#87CEEB')
-                .setTitle(`🌤️ Weather in ${cityName}`)
+                .setTitle(`🌤️ Weather in ${locationName}`)
                 .setDescription(`**${current.weatherDesc[0].value}**`)
                 .addFields(
                     { name: '🌡️ Temperature', value: `${current.temp_C}°C (${current.temp_F}°F)`, inline: true },
@@ -45,8 +53,8 @@ export default {
         };
 
         try {
-            const weatherData = await fetchWeatherData(city);
-            const embed = createWeatherEmbed(weatherData, city);
+            const weatherData = await fetchWeatherData(location);
+            const embed = createWeatherEmbed(weatherData, location);
 
             const row = new ActionRowBuilder()
                 .addComponents(
@@ -67,8 +75,8 @@ export default {
                 if (i.customId === 'refresh_weather') {
                     await i.deferUpdate();
                     try {
-                        const newWeatherData = await fetchWeatherData(city);
-                        const newEmbed = createWeatherEmbed(newWeatherData, city);
+                        const newWeatherData = await fetchWeatherData(location);
+                        const newEmbed = createWeatherEmbed(newWeatherData, location);
                         await i.editReply({ embeds: [newEmbed], components: [row] });
                     } catch (error) {
                         await i.editReply({ 
@@ -88,7 +96,7 @@ export default {
         } catch (error) {
             console.error('Error fetching weather:', error);
             await interaction.editReply({ 
-                content: `Sorry, I couldn't fetch weather data for "${city}". Please check the city name and try again.`,
+                content: `Sorry, I couldn't fetch weather data for "${location}". Please check the location and try again.`,
                 ephemeral: true 
             });
         }
