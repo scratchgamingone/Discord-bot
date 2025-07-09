@@ -1,0 +1,55 @@
+✅ Loaded command: nasaapod
+✅ Loaded command: randomquote
+✅ Loaded command: trivia
+✅ Loaded command: catfact
+✅ Loaded command: checkpermission
+✅ Loaded command: randomcomic
+✅ Loaded command: disney
+✅ Loaded command: randomdog
+✅ Loaded command: fortniteitem
+✅ Loaded command: randomgame
+✅ Loaded command: joke
+✅ Loaded command: listofcommands
+✅ Loaded command: ping
+✅ Loaded command: poll
+✅ Loaded command: random
+✅ Loaded command: randomcolor
+✅ Loaded command: randomcommand
+✅ Loaded command: randomletter
+✅ Loaded command: randomword
+✅ Loaded command: starwarsplanet
+✅ Loaded command: wikifact
+✅ Loaded command: randomcocktail
+✅ Loaded command: boostercheck
+✅ Loaded command: fortunecookie
+✅ Loaded command: randommeme
+✅ Loaded command: moviequote
+✅ Loaded command: privateboosterchannel
+✅ Loaded command: riddle
+✅ Loaded command: changenick
+✅ Loaded command: checkuserpermission
+✅ Loaded command: randomping
+✅ Loaded command: resetnick
+✅ Loaded command: createprivatecategory
+✅ Loaded command: giverandomrole
+Keep-alive server is ready on port 3000
+🤖 Logged in as Gamers#9539
+✅ Slash commands registered!
+✅ Daily random ping scheduled for 10 AM EST
+✅ Self-ping scheduled every 5 minutes
+Auto random messages started. Sending messages every 5 minutes.
+✅ Auto random messages setup complete
+Self-ping successful
+Error fetching movie quote: FetchError: request to https://api.quotable.io/random?tags=movie failed, reason: getaddrinfo EAI_AGAIN api.quotable.io
+    at ClientRequest.<anonymous> (file:///home/runner/workspace/node_modules/node-fetch/src/index.js:108:11)
+    at ClientRequest.emit (node:events:517:28)
+    at TLSSocket.socketErrorListener (node:_http_client:501:9)
+    at TLSSocket.emit (node:events:517:28)
+    at emitErrorNT (node:internal/streams/destroy:151:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  type: 'system',
+  errno: 'EAI_AGAIN',
+  code: 'EAI_AGAIN',
+  erroredSysCall: 'getaddrinfo'
+}
